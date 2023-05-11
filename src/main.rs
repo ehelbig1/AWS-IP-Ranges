@@ -9,7 +9,7 @@ struct Opt {
     region: Option<String>,
 
     #[structopt(short, long)]
-    service: Option<String>
+    service: Option<String>,
 }
 
 const URL: &str = "https://ip-ranges.amazonaws.com/ip-ranges.json";
@@ -24,30 +24,38 @@ fn main() {
             match data {
                 Ok(data) => {
                     let prefixes: Vec<&model::Prefix> = if let Some(region) = opt.region {
-                        data.prefixes.iter()
-                            .filter(|prefix| prefix.region.to_lowercase().contains(&region.to_lowercase()))
+                        data.prefixes
+                            .iter()
+                            .filter(|prefix| {
+                                prefix
+                                    .region
+                                    .to_lowercase()
+                                    .contains(&region.to_lowercase())
+                            })
                             .collect()
-                    }
-                    else {
-                        data.prefixes.iter()
-                            .collect()
+                    } else {
+                        data.prefixes.iter().collect()
                     };
 
                     let prefixes: Vec<&model::Prefix> = if let Some(service) = opt.service {
-                        prefixes.into_iter()
-                            .filter(|prefix| prefix.service.to_lowercase().contains(&service.to_lowercase()))
+                        prefixes
+                            .into_iter()
+                            .filter(|prefix| {
+                                prefix
+                                    .service
+                                    .to_lowercase()
+                                    .contains(&service.to_lowercase())
+                            })
                             .collect()
-                    }
-                    else {
-                        prefixes.into_iter()
-                            .collect()
+                    } else {
+                        prefixes.into_iter().collect()
                     };
 
                     println!("{:#?}", prefixes)
-                },
-                Err(error) => println!("{}", error)
+                }
+                Err(error) => println!("{}", error),
             }
-        },
+        }
         Err(error) => println!("{}", error),
     }
 }
