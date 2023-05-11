@@ -16,7 +16,7 @@ jobs:
           - os: linux
             target: x86_64-unknown-linux-musl
           - os: windows
-            target: x86_64-windows-msvc
+            target: x86_64-pc-windows-msvc
           - os: macos
             target: x86_64-apple-darwin
           - os: macos-m1
