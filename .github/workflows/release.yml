@@ -34,3 +34,19 @@ jobs:
       with:
         name: ${{ matrix.os }}-binary
         path: target/${{ matrix.target }}/release/aws-ip-ranges
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ matrix.os }}-binary
+        path: binaries/${{ matrix.os }}
+    - name: Create release
+      if: ${{ matrix.os == 'linux'  }}
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          binaries/linux/*
+          binaries/window/*
+          binaries/macos/*
+          binaries/macos-m1/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
