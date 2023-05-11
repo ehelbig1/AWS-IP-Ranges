@@ -22,6 +22,10 @@ jobs:
           - os: macos-m1
             target: aarch64-apple-darwin
     steps:
+    - name: Install musl-tools
+      run: |
+        sudo apt update
+        sudo apt install -y musl-tools
     - uses: actions/checkout@v3
     - uses: actions-rs/toolchain@v1
       with:
