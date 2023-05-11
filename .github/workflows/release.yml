@@ -8,16 +8,26 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - run: cargo build --release
-    - name: Upload artifacts
+    - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: linux-binary
         path: target/release/aws-ip-ranges
+  build-macos-m1:
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3
+      - run: cargo build --release
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-m1-binary
+          path: target/release/aws-ip-ranges
     # - name: Download artifacts
     #   uses: actions/download-artifact@v2
     #   with:
