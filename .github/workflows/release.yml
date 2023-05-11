@@ -30,6 +30,7 @@ jobs:
     - name: Set environment variables for pkg-config
       run: |
         echo "PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig" >> $GITHUB_ENV
+        echo "OPENSSL_DIR=/usr/bin" >> $GITHUB_ENV
         echo "OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu" >> $GITHUB_ENV
         echo "OPENSSL_INCLUDE_DIR=/usr/include/openssl" >> $GITHUB_ENV
     - uses: actions/checkout@v3
