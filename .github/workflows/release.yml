@@ -27,6 +27,11 @@ jobs:
         sudo apt update
         sudo apt install -y musl-tools
         sudo apt install -y libssl-dev
+    - name: Set environment variables for pkg-config
+      run: |
+        echo "PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig" >> $GITHUB_ENV
+        echo "OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu" >> $GITHUB_ENV
+        echo "OPENSSL_INCLUDE_DIR=/usr/include/openssl" >> $GITHUB_ENV
     - uses: actions/checkout@v3
     - uses: actions-rs/toolchain@v1
       with:
